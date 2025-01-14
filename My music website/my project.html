@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        :root {
+            --primary-color: #00a8e8;
+            --background-color: #f5f5f5;
+            --card-background: #ffffff;
+        }
+
+        body {
+            background-color: var(--background-color);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: var(--card-background);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .login-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .view-all {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .songs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .song-card {
+            background-color: var(--card-background);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .song-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .song-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .song-info {
+            padding: 1rem;
+        }
+
+        .song-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .song-artist {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .songs-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">MUSICHUB</div>
+        <button class="login-btn">Login</button>
+    </header>
+
+    <main class="container">
+        <section>
+            <div class="section-header">
+                <h2>Trending Songs</h2>
+                <a href="#" class="view-all">View All</a>
+            </div>
+            <div class="songs-grid" id="trending-songs"></div>
+        </section>
+
+        <section>
+            <div class="section-header">
+                <h2>New Releases</h2>
+                <a href="#" class="view-all">View All</a>
+            </div>
+            <div class="songs-grid" id="new-releases"></div>
+        </section>
+    </main>
+
+    <script>
+        // Sample data for songs
+        const trendingSongs = [
+            {
+                title: "Summer Vibes",
+                artist: "DJ Max",
+                image: "/placeholder.svg?height=200&width=200"
+            },
+            {
+                title: "Midnight Dreams",
+                artist: "Luna",
+                image: "/placeholder.svg?height=200&width=200"
+            },
+            {
+                title: "Electric Soul",
+                artist: "The Waves",
+                image: "/placeholder.svg?height=200&width=200"
+            },
+            {
+                title: "Desert Rose",
+                artist: "Sarah Moon",
+                image: "/placeholder.svg?height=200&width=200"
+            }
+        ];
+
+        const newReleases = [
+            {
+                title: "Ocean Breeze",
+                artist: "Coastal Band",
+                image: "/placeholder.svg?height=200&width=200"
+            },
+            {
+                title: "Mountain High",
+                artist: "The Climbers",
+                image: "/placeholder.svg?height=200&width=200"
+            },
+            {
+                title: "City Lights",
+                artist: "Urban Souls",
+                image: "/placeholder.svg?height=200&width=200"
+            },
+            {
+                title: "Forest Dreams",
+                artist: "Nature's Call",
+                image: "/placeholder.svg?height=200&width=200"
+            }
+        ];
+
+        // Function to create song cards
+        function createSongCard(song) {
+            return `
+                <div class="song-card">
+                    <img src="${song.image}" alt="${song.title}" class="song-image">
+                    <div class="song-info">
+                        <div class="song-title">${song.title}</div>
+                        <div class="song-artist">${song.artist}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to render songs
+        function renderSongs(songs, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = songs.map(song => createSongCard(song)).join('');
+        }
+
+        // Render the songs when the page loads
+        window.addEventListener('load', () => {
+            renderSongs(trendingSongs, 'trending-songs');
+            renderSongs(newReleases, 'new-releases');
+        });
+    </script>
+</body>
+</html>
